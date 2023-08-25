@@ -65,7 +65,8 @@
 > Notes:  
 > table for license (activation from/to date etc.)  
 > tax for items?  
-> Discount for items (resetable)
+> Discount for items (resetable)  
+> Special price set for specific time period (happy hour) and reset at the end automatically
 
 ### Models
 
@@ -79,24 +80,29 @@
     * Access PIN
     * IsActive
     * Can accept payment (only when delayed payment enabled)
-    * Scope?
+    * Scope
 * Item
     * EventId
     * Name
     * Description
     * Icon/Image
     * Price
+    * DiscountedPrice
     * Stock
 * OrderItem
     * OrderId
     * ItemId
-    * Info (Extra görk)
-    * Quantity
+    * PaymentId?
+    * Info (Keine görks)
+    * Price
+    * Discount
     * Completed
-* PaymentItem
-    * PaymentId
-    * ItemId
-    * Quantity
+* OrderItemExtra
+    * OrderItemId
+    * ExtraId
+* Extra
+    * Name
+    * Price
 * Table
     * EventId
     * Number?
@@ -110,6 +116,8 @@
     * EventId
     * TableId
     * WaiterId
+    * Discount(Id)
+    * Price
     * Date/Time
 * Discount
     * Name

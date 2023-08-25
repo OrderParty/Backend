@@ -44,11 +44,8 @@
     * Calc change (usage optional)
         * Suggest usefull amount
         * Manual amount input
-
-
-
-
-
+* Notification Center
+    * Show notifications
 
 
 ## Frontend - Admin
@@ -65,9 +62,10 @@
 
 ## Backend
 
-> Notes:
-> * table for license (activation from/to date etc.)
-> tax for items?
+> Notes:  
+> table for license (activation from/to date etc.)  
+> tax for items?  
+> Discount for items (resetable)
 
 ### Models
 
@@ -81,6 +79,7 @@
     * Access PIN
     * IsActive
     * Can accept payment (only when delayed payment enabled)
+    * Scope?
 * Item
     * EventId
     * Name
@@ -93,34 +92,78 @@
     * ItemId
     * Info (Extra görk)
     * Quantity
+    * Completed
 * PaymentItem
     * PaymentId
     * ItemId
     * Quantity
-* Desk
+* Table
     * EventId
     * Number?
     * Name
 * Order
     * EventId
-    * DeskId
+    * TableId
     * WaiterId
     * Date/Time
 * Payment
     * EventId
-    * DeskId
+    * TableId
     * WaiterId
     * Date/Time
-* Settings
+* Discount
+    * Name
+    * Value
+* Setting
     * EventId
     * Key
     * Value
-
-
+* Notfication
+    * TargetWaiterId (brotcast when null)
+    * Name
+    * Description
+    * StartDate
 
 
 ### Endpoints
 
+* Login
+* Table
+    * GetTables
+* Item
+    * GetItems
+    * UpdateItemStock
+* Discount
+    * GetDiscounts
+* Order
+    * GetOrders
+    * AddOrder
+    * CancelOrderItem
+* Payment
+    * GetUnpaidOrderItems
+    * AddPayment
+* Setting
+    * GetSettings
+* Notification
+    * GetNotifications (serverside event)
+* OrderItem
+    * UpdateOrderItem
+    * CancelOrderItem
 
+### Endpoints - Admin
 
-    
+* Login
+* Table
+    * AddTable
+    * UpdateTable
+    * DeleteTable
+* Discount
+    * AddDiscount
+    * UpdateDiscount
+    * DeleteDiscount
+* Item
+    * AddItem
+    * UpdateItem
+    * DeleteItem
+* Setting
+    * SetSetting

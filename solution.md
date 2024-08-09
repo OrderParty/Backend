@@ -101,6 +101,7 @@
     * OrderItemId
     * ExtraId
 * Extra
+    * ItemId
     * Name
     * Price
 * Table
@@ -108,18 +109,17 @@
     * Number?
     * Name
 * Order
-    * EventId
     * TableId
     * WaiterId
     * Date/Time
 * Payment
-    * EventId
     * TableId
     * WaiterId
     * Discount(Id)
     * Price
     * Date/Time
 * Discount
+    * EventId
     * Name
     * Value
 * Setting

@@ -1,5 +1,7 @@
 use diesel::prelude::*;
-#[derive(Queryable, Identifiable, Selectable, Debug)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Queryable, Identifiable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::events)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Event {

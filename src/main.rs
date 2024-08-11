@@ -1,24 +1,37 @@
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate rocket;
+
 use diesel::prelude::*;
 
-use rocket::response::{Debug};
-use rocket::serde::{json::Json};
-use rocket::{get, launch, routes};
+use rocket::launch;
 
-use order_party::*;
-use order_party::models::Event;
-use order_party::schema::events::dsl::events;
+use crate::db::db::DbConnection;
+use dotenvy::dotenv;
+use rocket_okapi::{
+    openapi_get_routes,
+    swagger_ui::{make_swagger_ui, SwaggerUIConfig},
+};
 
-type Result<T, E = Debug<diesel::result::Error>> = std::result::Result<T, E>;
-#[get("/")]
-fn index() -> Result<Json<Box<[Event]>>> {
-    let connection = &mut establish_connection();
-    let results = events
-        .select(Event::as_select())
-        .get_results(connection);
-    Ok(Json(results?.into_boxed_slice()))
-}
+mod db;
+mod errors;
+mod routes;
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+    dotenv().ok();
+    rocket::build()
+        .attach(DbConnection::fairing())
+        .mount(
+            "/",
+            openapi_get_routes![routes::index::index, routes::events::get_events,],
+        )
+        .mount(
+            "/swagger",
+            make_swagger_ui(&SwaggerUIConfig {
+                url: "../openapi.json".to_owned(),
+                ..Default::default()
+            }),
+        )
 }

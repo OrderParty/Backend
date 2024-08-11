@@ -1,7 +1,8 @@
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 
-#[derive(Queryable, Identifiable, Selectable, Serialize, Deserialize, Debug)]
+#[derive(Queryable, Identifiable, Selectable, Serialize, Deserialize, JsonSchema, Debug)]
 #[diesel(table_name = crate::schema::events)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Event {
@@ -11,7 +12,7 @@ pub struct Event {
     pub admin_access_token: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(table_name = crate::schema::waiters)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -25,7 +26,7 @@ pub struct Waiter {
     pub scope: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(table_name = crate::schema::items)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -41,17 +42,17 @@ pub struct Item {
     pub stock: i32,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(table_name = crate::schema::tables)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Table {
     pub id: i32,
     pub event_id: i32,
-    pub name: String
+    pub name: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Table))]
 #[diesel(table_name = crate::schema::orders)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -61,7 +62,7 @@ pub struct Order {
     pub timestamp: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(table_name = crate::schema::discounts)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -71,7 +72,7 @@ pub struct Discount {
     pub name: String,
     pub value: i32,
 }
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Table))]
 #[diesel(belongs_to(Waiter))]
 #[diesel(belongs_to(Discount))]
@@ -87,7 +88,7 @@ pub struct Payment {
     pub timestamp: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Order))]
 #[diesel(belongs_to(Item))]
 #[diesel(belongs_to(Payment))]
@@ -105,7 +106,7 @@ pub struct OrderItem {
     pub completed: bool,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Item))]
 #[diesel(table_name = crate::schema::extras)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -118,7 +119,7 @@ pub struct Extra {
     pub max_amount: i32,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(OrderItem))]
 #[diesel(belongs_to(Extra))]
 #[diesel(table_name = crate::schema::order_item_extras)]
@@ -130,7 +131,7 @@ pub struct OrderItemExtra {
     pub amount: i32,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(table_name = crate::schema::settings)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -141,7 +142,7 @@ pub struct Setting {
     pub value: String,
 }
 
-#[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
+#[derive(Queryable, Selectable, Identifiable, Associations, JsonSchema, Debug)]
 #[diesel(belongs_to(Event))]
 #[diesel(belongs_to(Waiter))]
 #[diesel(table_name = crate::schema::notifications)]

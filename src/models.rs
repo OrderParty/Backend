@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Identifiable, Selectable, Serialize, Deserialize, Debug)]
 #[diesel(table_name = crate::schema::events)]
@@ -48,16 +48,18 @@ pub struct Item {
 pub struct Table {
     pub id: i32,
     pub event_id: i32,
-    pub name: String
+    pub name: String,
 }
 
 #[derive(Queryable, Selectable, Identifiable, Associations, Debug)]
 #[diesel(belongs_to(Table))]
+#[diesel(belongs_to(Waiter))]
 #[diesel(table_name = crate::schema::orders)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Order {
     pub id: i32,
     pub table_id: i32,
+    pub waiter_id: i32,
     pub timestamp: String,
 }
 

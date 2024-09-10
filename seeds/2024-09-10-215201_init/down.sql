@@ -1,0 +1,12 @@
+DELETE FROM events;
+DELETE FROM settings;
+DELETE FROM discounts;
+DELETE FROM waiters;
+DELETE FROM notifications;
+DELETE FROM tables;
+DELETE FROM orders;
+DELETE FROM items;
+DELETE FROM payments;
+DELETE FROM order_items;
+DELETE FROM extras;
+DELETE FROM order_item_extras;

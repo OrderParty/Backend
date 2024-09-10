@@ -1,5 +1,5 @@
-use diesel::SqliteConnection;
 use diesel::prelude::*;
+use diesel::SqliteConnection;
 use dotenvy::dotenv;
 use std::env;
 

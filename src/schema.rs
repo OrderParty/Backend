@@ -78,6 +78,7 @@ diesel::table! {
     orders (id) {
         id -> Integer,
         table_id -> Integer,
+        waiter_id -> Integer,
         timestamp -> Timestamp,
     }
 }

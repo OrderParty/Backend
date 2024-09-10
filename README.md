@@ -17,6 +17,10 @@ cd {pathToProjectFolder}/OrderParty-Backend
 ```sh
 diesel database setup
 ```
+### Database seeding
+```sh
+diesel migration --migration-dir seeds run
+```
 ### Run Application
 ```sh
 cargo run
